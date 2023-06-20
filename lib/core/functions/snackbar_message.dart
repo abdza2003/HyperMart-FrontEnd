@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-SnackBarMessage({
+snackBarMessage({
   required String title,
   required String message,
   Color? color,

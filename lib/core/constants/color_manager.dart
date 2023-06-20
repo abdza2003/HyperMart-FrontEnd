@@ -9,5 +9,6 @@ class ColorManager {
   static Color textFaild = HexColor('#F4F4F4');
   static Color shadow = HexColor('#ababab');
   static Color bottomText = HexColor('#A1A1A1');
+  static Color error = HexColor('#F34A63');
   //292526
 }

@@ -43,14 +43,6 @@ class ProductDetailsWidget extends GetView<DetailsPageControllerImp> {
                 builder: (context) =>
                     DetailsScreen(listInfo: listInfo, productId: productId)));
         controller.showFavoriteButton = false;
-
-        // controller.scrollController = ScrollController();
-
-        // if ( == 0) {
-        //   controller.scrollController
-        //     ..removeListener(controller.scroll())
-        //     ..dispose();
-        // }
       },
       child: Container(
         // color: Colors.red,

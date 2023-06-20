@@ -6,7 +6,3 @@ void main() async {
   await SettingServices().initailServices();
   runApp(MainApp());
 }
-//*  
-// !
-// TODO: 
-// ?

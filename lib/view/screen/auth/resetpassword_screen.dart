@@ -43,7 +43,10 @@ class ResetPasswordScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              MyTextFaildWidget(title: 'new password'),
+              MyTextFaildWidget(
+                title: 'new password',
+                textEditingController: controller.newPassword,
+              ),
               const SizedBox(height: 20),
               Text(
                 'Confirm password',
@@ -52,13 +55,16 @@ class ResetPasswordScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              MyTextFaildWidget(title: 'confirm password'),
+              MyTextFaildWidget(
+                title: 'confirm password',
+                textEditingController: controller.confirmPassword,
+              ),
               const SizedBox(height: 30),
               Container(
                   alignment: Alignment.center,
                   child: MyButtonWiget(
-                      func: () {
-                        controller.login();
+                      func: () async {
+                        await controller.login();
                       },
                       buttonTitle: 'Submit'))
             ],

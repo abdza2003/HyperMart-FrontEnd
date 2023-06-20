@@ -66,8 +66,8 @@ class LoginScreen extends StatelessWidget {
                       textEditingController: controller.password),
                   const SizedBox(height: 20),
                   MyButtonWiget(
-                      func: () {
-                        controller.submit();
+                      func: () async {
+                        await controller.submit();
                       },
                       buttonTitle: 'Log In'),
                   const SizedBox(height: 20),

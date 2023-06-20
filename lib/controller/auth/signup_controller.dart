@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hypermart/core/constants/approute_manager.dart';
+import 'package:hypermart/core/constants/auth_exceptions_message.dart';
+import 'package:hypermart/core/constants/handlign_data.dart';
+import 'package:hypermart/core/constants/status_request.dart';
 import 'package:hypermart/core/constants/verification_mode.dart';
+import 'package:hypermart/core/data/auth/login_data.dart';
+import 'package:hypermart/core/data/auth/signUp_data.dart';
 import 'package:hypermart/core/functions/snackbar_message.dart';
 import 'package:hypermart/view/screen/auth/login_screen.dart';
 import 'package:page_transition/page_transition.dart';
@@ -16,8 +21,10 @@ class SignUpControllerImp extends SignUpController {
   late TextEditingController userName;
   late TextEditingController password;
   late TextEditingController phoneNumber;
+  late StatusRequest statusRequest;
   @override
   void onInit() {
+    statusRequest = StatusRequest.none;
     emailAddress = TextEditingController();
     userName = TextEditingController();
     phoneNumber = TextEditingController();
@@ -42,21 +49,28 @@ class SignUpControllerImp extends SignUpController {
   }
 
   @override
-  submit() {
-    Get.toNamed(AppRouteManager.verification, arguments: {
-      'email_address': '${emailAddress.text}',
-      'verification_mode': VerificationMode.newAccount,
-    });
-    SnackBarMessage(
-      title: 'warning',
-      message: 'The code has been sent successfully',
-      snackPosition: SnackPosition.TOP,
+  submit() async {
+    var response = await SignUpData().call(
+      userName: userName.text,
+      password: password.text,
+      userEmail: emailAddress.text,
     );
-    print('-------------------------------');
-    print('userName : ${userName.text}');
-    print('email : ${emailAddress.text}');
-    print('password : ${password.text}');
-    print('phone : ${phoneNumber.text}');
+    statusRequest = handlingData(response);
+    if (statusRequest == StatusRequest.success) {
+      if (response['STATUS'] == 'SUCCESSFUL') {
+        Get.toNamed(AppRouteManager.verification, arguments: {
+          'email_address': emailAddress.text,
+          'verification_mode': VerificationMode.newAccount,
+        });
+        snackBarMessage(
+          title: 'warning',
+          message: 'Please confirm your email. ',
+          snackPosition: SnackPosition.TOP,
+        );
+      } else {
+        authExeptionMessage(response['STATUS']);
+      }
+    }
   }
 
   @override

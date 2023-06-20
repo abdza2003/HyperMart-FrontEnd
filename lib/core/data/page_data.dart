@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:hypermart/core/class/meddliwere.dart';
 import 'package:hypermart/core/constants/approute_manager.dart';
 import 'package:hypermart/core/service/binding_services.dart';
 import 'package:hypermart/view/screen/auth/forgetpassword_screen.dart';
@@ -16,11 +17,13 @@ class PageData {
     GetPage(
         name: AppRouteManager.onboarding,
         page: () => OnboardingScreen(),
-        binding: AuthenticationBinding()),
+        binding: AuthenticationBinding(),
+        middlewares: [AuthMiddleware()]),
     GetPage(
         name: AppRouteManager.login,
         page: () => LoginScreen(),
-        binding: AuthenticationBinding()),
+        binding: AuthenticationBinding(),
+        middlewares: [AuthMiddleware()]),
     GetPage(
         name: AppRouteManager.signUp,
         page: () => SignUpScreen(),

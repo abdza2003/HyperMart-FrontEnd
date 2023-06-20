@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hypermart/core/constants/font_manager.dart';
 import 'package:hypermart/core/constants/media_query.dart';
 import 'package:hypermart/core/data/profile_data.dart';
+import 'package:hypermart/core/service/setting_services.dart';
 
 class ProfileMainInfo extends StatelessWidget {
   const ProfileMainInfo({Key? key}) : super(key: key);
@@ -32,9 +33,20 @@ class ProfileMainInfo extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 15),
-                    Text(
-                      'abdza1355@gmail.com',
-                      style: FontManager.regularStyle.copyWith(fontSize: 15),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${services.sharedPreferences.getString('user_information')?.split('|')[1]}',
+                          style:
+                              FontManager.regularStyle.copyWith(fontSize: 15),
+                        ),
+                        Text(
+                          '${services.sharedPreferences.getString('user_information')?.split('|')[0]}',
+                          style:
+                              FontManager.regularStyle.copyWith(fontSize: 15),
+                        ),
+                      ],
                     ),
                   ],
                 ),

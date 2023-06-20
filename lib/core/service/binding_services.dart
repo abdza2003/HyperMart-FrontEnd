@@ -7,6 +7,7 @@ import 'package:hypermart/controller/auth/verification_controller.dart';
 import 'package:hypermart/controller/home/detailsPage_controller.dart';
 import 'package:hypermart/controller/home/homePage_controller.dart';
 import 'package:hypermart/controller/start/onboarding_controller.dart';
+import 'package:hypermart/core/service/setting_services.dart';
 
 class AuthenticationBinding implements Bindings {
   @override
@@ -18,6 +19,7 @@ class AuthenticationBinding implements Bindings {
     Get.lazyPut(() => VerificationControllerImp(), fenix: true);
     Get.lazyPut(() => ResetPasswordControllerImp(), fenix: true);
     Get.lazyPut(() => HomePageControllerImp(), fenix: true);
+    Get.lazyPut(() => SettingServices(), fenix: true);
     // Get.lazyPut(() => DetailsPageControllerImp(), fenix: false);
     Get.put(DetailsPageControllerImp(), permanent: true);
   }

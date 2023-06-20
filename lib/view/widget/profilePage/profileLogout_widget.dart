@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:hypermart/core/constants/approute_manager.dart';
 import 'package:hypermart/core/constants/font_manager.dart';
 import 'package:hypermart/core/constants/image_manager.dart';
 import 'package:hypermart/core/constants/media_query.dart';
+import 'package:hypermart/core/service/setting_services.dart';
 
 class ProfileLogOutWidget extends StatelessWidget {
   const ProfileLogOutWidget({Key? key}) : super(key: key);
@@ -14,7 +17,11 @@ class ProfileLogOutWidget extends StatelessWidget {
         customBorder: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),
         ),
-        onTap: () {},
+        onTap: () async {
+          await services.sharedPreferences.clear().then((value) {
+            Get.offAllNamed(AppRouteManager.login);
+          });
+        },
         child: Card(
           // margin: EdgeInsets.all(10),
           elevation: 10,

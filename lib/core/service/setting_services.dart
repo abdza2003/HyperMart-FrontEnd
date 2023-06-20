@@ -14,3 +14,5 @@ class SettingServices extends GetxService {
     await Get.putAsync(() => SettingServices().init());
   }
 }
+
+SettingServices services = Get.find();

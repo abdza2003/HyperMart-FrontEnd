@@ -5,7 +5,7 @@ import 'package:hypermart/core/service/binding_services.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:hypermart/test/test.dart';
+import 'package:hypermart/view/screen/auth/login_screen.dart';
 import 'package:hypermart/view/screen/auth/resetpassword_screen.dart';
 
 class MainApp extends StatelessWidget {
@@ -18,7 +18,7 @@ class MainApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeManager.lightTheme,
-      // home: homePageS(),
+      // home: LoginScreen(),
       initialBinding: AuthenticationBinding(),
       initialRoute: AppRouteManager.onboarding,
       getPages: PageData().getPages,

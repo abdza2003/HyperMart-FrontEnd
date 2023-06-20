@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:hypermart/core/constants/approute_manager.dart';
+import 'package:hypermart/core/constants/auth_exceptions_message.dart';
 import 'package:hypermart/core/constants/color_manager.dart';
 import 'package:hypermart/core/constants/verification_mode.dart';
+import 'package:hypermart/core/data/auth/confirmation_data.dart';
 import 'package:hypermart/core/functions/snackbar_message.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hypermart/core/functions/toast_message.dart';
@@ -53,24 +55,32 @@ class VerificationControllerImp extends VerificationController {
   }
 
   @override
-  getVerificationCode(code) {
+  getVerificationCode(code) async {
     verificationCode = code;
     update();
+    var response = await ConfirmationData()
+        .call(userEmail: sendedEmail, userVerifyCode: verificationCode);
     print('new code  $verificationCode');
-    if (verificationMode == VerificationMode.newAccount) {
-      Get.offNamed(AppRouteManager.login);
-      SnackBarMessage(
-        title: 'warning',
-        message: 'The account has been activated successfully',
-        snackPosition: SnackPosition.TOP,
-      );
+    if (response['STATUS'] == 'SUCCESSFUL') {
+      if (verificationMode == VerificationMode.newAccount) {
+        Get.offNamed(AppRouteManager.login);
+        snackBarMessage(
+          title: 'warning',
+          message: 'The account has been activated successfully',
+          snackPosition: SnackPosition.TOP,
+        );
+      } else {
+        Get.offNamed(AppRouteManager.resetPassword, arguments: {
+          'email_address': sendedEmail,
+        });
+        snackBarMessage(
+          title: 'warning',
+          message: 'The email has been verified',
+          snackPosition: SnackPosition.TOP,
+        );
+      }
     } else {
-      Get.offNamed(AppRouteManager.resetPassword);
-      SnackBarMessage(
-        title: 'warning',
-        message: 'The email has been verified',
-        snackPosition: SnackPosition.TOP,
-      );
+      authExeptionMessage(response['STATUS']);
     }
   }
 
